@@ -1,4 +1,5 @@
 import string
+import operations
 
 
 print('Welcome to WKalculator!')
@@ -12,12 +13,12 @@ digits = set(string.digits)
 for each in equation:
     query.append(each)
 
-print(query)
-print(digits)
+# print(query)
+# print(digits)
 
 operands = []
 operands_working = []
-operators = ['+', '-', '*', '//']
+operators = ['+', '-', '*', '/']
 operators_working = []
 
 for x in query:
@@ -39,22 +40,42 @@ if operands_working != []:
     operands.append(int(operand))
     operands_working = []
 
-results_working = [] # Used as stack
+# print('operands_working: {}'.format(operands_working))
+# print('operands: {}'.format(operands))
+# print('operators_working: {}'.format(operators_working))
 
-print('operands_working: {}'.format(operands_working))
-print('operands: {}'.format(operands))
-print('operators_working: {}'.format(operators_working))
-
-for x in range(len(operators_working)):
-    if operators_working[x] == '+':
+for x in operators_working:
+    if x == '+':
         # Addition
-        # result = add(operands[x], operands[x+1])
-        # operands.pop(x) <-- remove operand 1
-        # operands.pop(x+1) <-- remove operand 2
-        # operands.insert(0, result) <-- places the result of operation at the place of two used operands
-        pass
-    elif operators_working[x] == '-':
-        # Difference
-        # result = detract(operands[x], operands[x+1])
-        # results_working.append(result)
-        pass
+        result = operations.add(operands[0], operands[1])
+        operands.pop(0)     # remove operand 1
+        operands.pop(0)     # remove operand 2
+        operands.insert(0, result) # places the result of operation at the place of two used operands
+    elif x == '-':
+        # Subtraction
+        result = operations.subtract(operands[0], operands[1])
+        operands.pop(0)     # remove operand 1
+        operands.pop(0)     # remove operand 2
+        operands.insert(0, result) # places the result of operation at the place of two used operands
+    elif x == '*':
+        # Subtraction
+        result = operations.multiply(operands[0], operands[1])
+        operands.pop(0)     # remove operand 1
+        operands.pop(0)     # remove operand 2
+        operands.insert(0, result) # places the result of operation at the place of two used operands
+    elif x == '/':
+        # Subtraction
+        result = operations.divide(operands[0], operands[1])
+        operands.pop(0)     # remove operand 1
+        operands.pop(0)     # remove operand 2
+        operands.insert(0, result) # places the result of operation at the place of two used operands
+    else:
+        print('Error.')
+        break
+
+
+# print('operands_working: {}'.format(operands_working))
+# print('operands: {}'.format(operands))
+
+if len(operands) == 1:
+    print('\n{} = {}'.format(equation, operands[0]))
